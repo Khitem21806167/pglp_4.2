@@ -1,0 +1,10 @@
+package Exceptions;
+
+public class PileVideException extends extends IllegalArgumentException {
+	
+	 // Constructeur de l'exception PileVideEXception
+	public PileVideException() {
+		super("ERREUR  : vous avez pas assez d'operandes pour realiser l'operation, si vous voulez quitter tapez (exit). ");
+	}
+
+}

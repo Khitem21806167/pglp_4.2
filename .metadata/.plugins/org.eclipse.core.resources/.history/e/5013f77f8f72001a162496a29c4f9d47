@@ -1,0 +1,31 @@
+package pglp_4_2.pglp4_2;
+import Commands.*;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Stack;
+
+public class Interpreteur {
+	
+	private Boutton changement;
+	private Stack<WorkUndo> EtatPile ;
+	private List<String> liste;
+	
+	public Interpreteur() {
+		this.changement = new Boutton();
+		this.EtatPile = new Stack<WorkUndo>();
+		this.liste = new ArrayList<String>();
+	}
+	
+	//l execution de la commande
+	private void RunCommand(RunCommand command) {
+		command.run();
+	}
+	
+	//l execution de Undo Command
+	private void UndoCommand() {
+		this.RunCommand(new WorkCommand(EtatPile));
+	}
+	
+
+}

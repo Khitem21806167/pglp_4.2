@@ -1,0 +1,12 @@
+package Exceptions;
+
+public class PileVideException extends Exception {
+	
+	 // Constructeur de l'exception PileVideEXception
+	
+	
+	public PileVideException() {
+		super("ERREUR  : vous avez pas assez d'operandes pour realiser l'operation, si vous voulez quitter tapez (exit). ");
+	}
+
+}

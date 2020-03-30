@@ -1,0 +1,17 @@
+package Commands;
+import java.util.Stack;
+
+public class UndoCommand implements RunCommand {
+
+		private WorkUndo commande;
+		public UndoCommand(Stack<WorkUndo> historique) {
+			ExceptionHandler.handleStackSize(historique.size(), 1);
+			this.commande = historique.pop();
+		}
+
+		@Override
+		public void run() {
+			commande.undo();		
+		}
+	
+}
