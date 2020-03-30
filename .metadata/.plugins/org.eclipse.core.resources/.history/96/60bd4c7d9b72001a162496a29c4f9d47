@@ -1,0 +1,10 @@
+package Exceptions;
+
+public class NumOperandeException extends IllegalArgumentException {
+
+	
+	public NumOperandeException() {
+		super("Il n'y a pas assez d'opérations, il reste au moins deux nombres dans la pile");
+	}
+
+}

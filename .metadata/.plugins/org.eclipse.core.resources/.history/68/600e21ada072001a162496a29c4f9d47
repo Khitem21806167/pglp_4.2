@@ -1,0 +1,74 @@
+package pglp_4_2.pglp4_2;
+import Exceptions.*;
+
+public enum Operation {
+	/*
+	 * Constante PLUS:
+	 * definit l'operation "+" addition.
+	 * */
+	PLUS('+'){
+		
+		//methode de l'avaluation pour l'ddition.
+		 
+		public double eval(double opr1 , double opr2) {
+			return opr1 + opr2 ;
+		}
+	},
+	/*
+	 * Constante MOINS:
+	 * definit l'operation "-" soustraction.
+	 * */
+	MOINS('-'){
+		
+		//methode de l'avaluation pour la soustraction 
+		 
+		public double eval(double opr1 , double opr2) {
+			return opr1 - opr2 ;
+		}
+	},
+	/*
+	 * Constante MULT:
+	 * definit l'operation "*" multiplication.
+	 * */
+	MULT('*'){
+		
+		//methode de l'avaluation pour la multiplication 
+		 
+		public double eval(double opr1 , double opr2) {
+			return opr1 * opr2 ;
+		}
+	},
+	/*
+	 * Constante DIV:
+	 * definit l'operation "/" division.
+	 * */
+	DIV('/'){
+		
+		//methode de l'avaluation pour la division 
+		 
+		public double eval(double opr1 , double opr2) throws
+		DivisionparZeroException{ 
+				if (opr1 == 0) throw new DivisionparZeroException();
+			return opr2 / opr1 ;
+		}
+	};
+
+	//les quatrre operations 
+	private String symbole; 
+
+	//constructeur (symbole de l operation comme parametre)
+	private Operation(String symbole) {
+		this.symbole = symbole ;
+	}
+	
+
+	//la methode eval retourne le resultat de l evaluation sur deux operandes
+
+	public abstract double eval(double opr1, double opr2)throws DivisionparZeroException;
+	
+	//accesseur dy symbole de l operation
+	public String getSymbole() {
+		return symbole;
+	}
+
+}

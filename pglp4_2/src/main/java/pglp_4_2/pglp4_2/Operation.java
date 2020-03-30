@@ -6,7 +6,7 @@ public enum Operation {
 	 * Constante PLUS:
 	 * definit l'operation "+" addition.
 	 * */
-	PLUS('+'){
+	PLUS("+"){
 		
 		//methode de l'avaluation pour l'ddition.
 		 
@@ -18,7 +18,7 @@ public enum Operation {
 	 * Constante MOINS:
 	 * definit l'operation "-" soustraction.
 	 * */
-	MOINS('-'){
+	MOINS("-"){
 		
 		//methode de l'avaluation pour la soustraction 
 		 
@@ -30,7 +30,7 @@ public enum Operation {
 	 * Constante MULT:
 	 * definit l'operation "*" multiplication.
 	 * */
-	MULT('*'){
+	MULT("*"){
 		
 		//methode de l'avaluation pour la multiplication 
 		 
@@ -42,22 +42,22 @@ public enum Operation {
 	 * Constante DIV:
 	 * definit l'operation "/" division.
 	 * */
-	DIV('/'){
+	DIV("/"){
 		
 		//methode de l'avaluation pour la division 
 		 
 		public double eval(double opr1 , double opr2) throws
 		DivisionparZeroException{ 
-				if (opr1 == 0) throw new DivisionparZeroException();
-			return opr2 / opr1 ;
+				if (opr2 == 0) throw new DivisionparZeroException();
+			return opr1 / opr2 ;
 		}
 	};
 
 	//les quatrre operations 
-	private char symbole; 
+	private String symbole; 
 
 	//constructeur (symbole de l operation comme parametre)
-	private Operation(char symbole) {
+	private Operation(String symbole) {
 		this.symbole = symbole ;
 	}
 	
@@ -67,7 +67,7 @@ public enum Operation {
 	public abstract double eval(double opr1, double opr2)throws DivisionparZeroException;
 	
 	//accesseur dy symbole de l operation
-	public char getSymbole() {
+	public String getSymbole() {
 		return symbole;
 	}
 

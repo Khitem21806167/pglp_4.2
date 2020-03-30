@@ -1,0 +1,54 @@
+package pglp_4_2.pglp4_2;
+import Commands.*;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Stack;
+
+public class Interpreteur {
+	
+	private Boutton changement;
+	private Stack<WorkUndo> EtatPile ;
+	private List<String> liste;
+	
+	public Interpreteur() {
+		this.changement = new Boutton();
+		this.EtatPile = new Stack<WorkUndo>();
+		this.liste = new ArrayList<String>();
+	}
+	
+	//l execution de la commande
+	private void RunCommand(RunCommand command) {
+		command.run();
+	}
+	
+	//l execution de Undo Command
+	private void UndoCom() {
+		this.RunCommand(new UndoCommand(EtatPile));
+	}
+	public void liste(String car) {
+		this.RunCommand(() -> liste.add(car));
+	}
+	
+	public String recupFin() {
+		return liste.get(liste.size() - 1);
+	}
+	
+	public void shutdown() {
+		this.RunCommand(new QuitCommand(changement));
+	}
+	
+	public boolean isOn() {
+		return changement.EtatOn();
+	}
+	
+	public void Reserver(WorkUndo commande) {
+		try {
+			commande.run();
+			this.EtatPile.add(commande);	
+		} catch (Exception e) {
+			throw e;
+		}
+	}
+
+}

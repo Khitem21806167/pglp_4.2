@@ -26,7 +26,7 @@ public class MoteurRPN extends Interpreteur{
 	 * @return la chaine de caracteres representant les operandes stock�es
 	 */
 	public String affichage(){
-		String string = "";
+		String string = "votre pile est la suivante: ";
 		for(Double val: this.pile){
 			string += val + " ";
 		}

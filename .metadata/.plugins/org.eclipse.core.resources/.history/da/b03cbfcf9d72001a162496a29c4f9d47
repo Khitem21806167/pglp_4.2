@@ -1,0 +1,135 @@
+package pglp_4_2.pglp4_2;
+import java.util.Scanner;
+import Commands.*;
+import Exceptions.*;
+
+
+public class SaisieRPN {
+	
+	//scanner est un attribut qui gerera les saisies
+	private Scanner scanner;
+	
+	
+	//  Attribut  moteur qui permet d'enregistrer une op�rande, d'appliquer une op�ration sur les op�randes . 
+	 
+	private MoteurRPN moteurRPN;
+	
+	
+	//  Constructeur de Saisie qui initialise les attributs moteur et scanner
+	 
+	public SaisieRPN() {
+		this.moteurRPN = new MoteurRPN();
+	}
+	
+	public void setScanner(Scanner scanner) {
+		this.scanner = scanner;		
+	}
+
+	public void closeScanner() {
+		scanner.close();
+	}
+	
+	//la saisie et l'affichage
+	public void saisie() {
+		this.setScanner(new Scanner(System.in));
+
+		String input = ""; 
+		String string = "";
+
+		while(moteurRPN.isOn()) {
+			System.out.println("tapez entier ou operations puis entree, exit pour sortir");
+			try {
+				input = scanneLigne();
+				str += input + " ";
+				System.out.println(str);
+			}
+			catch (Exception e) {
+				System.err.println(e.getMessage());
+			}
+			System.out.println(moteur.afficherPile());
+		}
+
+		// checkNombreOperations();
+
+		System.out.println("Fin du programme");
+		this.closeScanner();    
+	}
+
+	/**
+	 * Scanne une ligne
+	 * @return operande, double ou exit
+	 * @throws DivisionParZeroException
+	 * @throws MinMaxException
+	 * @throws ArgumentPileException
+	 * @throws ErreurSaisieException
+	 */
+	public String scanneLigne() throws DivisionParZeroException, MinMaxException, 
+	ArgumentPileException, ErreurSaisieException {
+		String input;
+		if (sc.hasNextDouble()) {
+			Double d = sc.nextDouble();
+			moteur.enregistrerNb(d);
+			sc.nextLine();
+			input = d.toString();
+		} 
+		else {
+			input = sc.nextLine();
+			if (input.equals("exit")) {
+				moteur.shutdown();
+			}
+			else if (input.equals("undo")) {
+				moteur.undoCommand();
+			}
+			else if (isOperation(input)) {
+				moteur.appliquerOperation(renvoieOperation(input));	
+			}
+			else {
+				throw new ErreurSaisieException();
+			}
+		}
+		return input;
+	}
+
+	/**
+	 * Retourne vrai si le string correspond à une opération
+	 * @param str
+	 * @return booléen
+	 */
+	private boolean isOperation(String str) {
+		return this.renvoieOperation(str) != null;
+	}
+
+	/**
+	 * Retourne une opération correspondant au string
+	 * @param str
+	 * @return Opération
+	 */
+	private Operation renvoieOperation(String str) {
+		for (Operation op : Operation.values())
+			if (str.equals(op.getSymbole()))
+				return op;
+		return null;
+	}
+
+	/**
+	 * Vérifie que l'état de la pile est conforme à la fin de la saisie
+	 * @throws NombreOperationsException
+	 */
+	public void isStackValid() throws NombreOperationsException {
+		if (!(this.moteur.getSizePile() == 1)) {throw new NombreOperationsException();}
+	}
+	
+	
+	/**
+	 * NombreOperationsException
+	 */
+	private void checkNombreOperations() {
+		try {
+			this.isStackValid();
+		}
+		catch (Exception e) {
+			System.err.println(e.getMessage());
+		}
+	}
+
+}

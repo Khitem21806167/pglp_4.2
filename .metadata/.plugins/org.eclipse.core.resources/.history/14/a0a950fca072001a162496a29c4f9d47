@@ -1,0 +1,112 @@
+package pglp_4_2.pglp4_2;
+import java.util.Scanner;
+import Commands.*;
+import Exceptions.*;
+
+
+public class SaisieRPN {
+	
+	//scanner est un attribut qui gerera les saisies
+	private Scanner scanner;
+	
+	
+	//  Attribut  moteur qui permet d'enregistrer une op�rande, d'appliquer une op�ration sur les op�randes . 
+	 
+	private MoteurRPN moteurRPN;
+	
+	
+	//  Constructeur de Saisie qui initialise les attributs moteur et scanner
+	 
+	public SaisieRPN() {
+		this.moteurRPN = new MoteurRPN();
+	}
+	
+	public void setScanner(Scanner scanner) {
+		this.scanner = scanner;		
+	}
+
+	public void closeScanner() {
+		scanner.close();
+	}
+	
+	//la saisie et l'affichage
+	public void saisie() {
+		this.setScanner(new Scanner(System.in));
+
+		String input = ""; 
+		String string = "";
+
+		while(moteurRPN.isOn()) {
+			System.out.println("tapez entier ou operations puis entree, exit pour sortir");
+			try {
+				input = scanner();
+				string += input + " ";
+				System.out.println(string);
+			}
+			catch (Exception e) {
+				System.err.println(e.getMessage());
+			}
+			System.out.println(moteurRPN.affichage());
+		}
+
+		// checkNombreOperations();
+
+		System.out.println("Fin du programme");
+		this.closeScanner();    
+	}
+
+	
+	public String scanner() throws DivisionparZeroException, MinMaxException, 
+	PileVideException, ErreurSaisieException {
+		String input;
+		if (scanner.hasNextDouble()) {
+			Double doubl = scanner.nextDouble();
+			moteurRPN.stockOp(doubl);
+			scanner.nextLine();
+			input = doubl.toString();
+		} 
+		else {
+			input = scanner.nextLine();
+			if (input.equals("exit")) {
+				moteurRPN.shutdown();
+			}
+			else if (input.equals("undo")) {
+				moteurRPN.WorkUndo();
+			}
+			else if (isOperation(input)) {
+				moteurRPN.appliquerOperation(renvoieOperation(input));	
+			}
+			else {
+				throw new ErreurSaisieException();
+			}
+		}
+		return input;
+	}
+
+	private boolean isOperation(String str) {
+		return this.renvoieOperation(str) != null;
+	}
+
+	private Operation renvoieOperation(String string) {
+		for (Operation op : Operation.values())
+			if (string.equals(op.getSymbole()))
+				return op;
+		return null;
+	}
+
+	
+	public void PileVide() throws NombreOpException {
+		if (!(this.moteurRPN.getPile() == 1)) {
+			throw new NombreOpException();}
+	}
+	
+	private void NombreOperations() {
+		try {
+			this.PileVide();
+		}
+		catch (Exception e) {
+			System.err.println(e.getMessage());
+		}
+	}
+
+}
