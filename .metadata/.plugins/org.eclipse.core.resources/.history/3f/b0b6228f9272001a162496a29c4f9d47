@@ -1,0 +1,25 @@
+package Commands;
+
+public class NumberCommand implements WorkUndo {
+	
+
+	private double nb;
+	private Stack<Double> pile;
+	
+	public StoreNbCommand(Stack<Double> pile, double nb) {
+		this.pile = pile;
+		this.nb = nb;		
+	}
+	
+	@Override
+	public void apply() {
+		ExceptionHandler.handleMinMax(nb);
+		this.pile.push(nb);
+	}
+	
+	@Override
+	public void undo() {
+		this.pile.pop();
+	}
+
+}

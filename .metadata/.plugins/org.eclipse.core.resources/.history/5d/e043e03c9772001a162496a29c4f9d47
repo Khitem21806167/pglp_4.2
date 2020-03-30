@@ -1,0 +1,53 @@
+package pglp_4_2.pglp4_2;
+import java.util.Stack;
+import Commands.*;
+
+
+public class MoteurRPN {
+	/*
+	 * Methode qui fait le calcul de l'op�ration 
+	 * et stocke le r�sultat dans la pile
+	 *elle pre,ds en parametre l operation qui fera
+	 *le calcul et elle retourne le resultat du calcul
+	 */
+	public Double calculeOperation(Operation op)throws DivisionparZeroException,ValeurLimiteException{
+		return enregistrerOperande(op.eval(pile.pop(), pile.pop()));
+	}
+
+	/*
+	 * Methode qui permet de savoir si une operation est possible
+	 * et ca va dependre de la taille de notre pile  
+	 * 
+	 */
+	public boolean operable(){
+		if(pile.size()>=2) return true;
+		else return false;
+	}
+	/*
+	 * 	Methode qui affiche l'ntervalle des valeurs min max que la calculatrice supporte
+	 */
+	public String ValeursOperables(){
+		return "MIN_VALUE = " + MIN_VALUE + " et MAX_VALUE = " + MAX_VALUE + ".";
+	}
+	
+	/*
+	 * Methode qui retourne l'ensemble des operandes stock�es
+	 * @return la chaine de caracteres representant les operandes stock�es
+	 */
+	public String OperandesStockees(){
+		String string = "";
+		for(Double val: pile){
+			string += val + " ";
+		}
+		return string;
+	}
+	
+	/*
+	 * Accesseur de la pile du moteurRPN
+	 */
+	public Stack<Double> getPile(){
+		return this.pile;
+	}
+	
+
+}
