@@ -23,7 +23,7 @@ public class Interpreteur {
 	}
 	
 	//l execution de Undo Command
-	private void UndoCommand() {
+	public void undoCom() {
 		this.RunCommand(new UndoCommand(EtatPile));
 	}
 	public void liste(String car) {
